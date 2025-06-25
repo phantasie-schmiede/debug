@@ -36,7 +36,7 @@
 		"typo3/cms-core": "^11.5|^12.4|^13.4"
 	},
 	"require-dev": {
-		"roave/security-advisories": "dev-latest",
+		"roave/security-advisories": "dev-latest"
 	},
 	"scripts": {
 		"prepare-release": [
