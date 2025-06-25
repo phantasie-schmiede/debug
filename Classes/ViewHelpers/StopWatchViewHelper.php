@@ -2,21 +2,21 @@
 declare(strict_types=1);
 
 /*
- * This file is part of PSB Debug.
+ * This file is part of PSBits Debug.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace PSB\PsbDebug\ViewHelpers\Debug;
+namespace PSBits\Debug\ViewHelpers\Debug;
 
-use PSB\PsbDebug\Service\StopWatchService;
+use PSBits\Debug\Service\StopWatchService;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class StopWatchViewHelper
  *
- * @package PSB\PsbDebug\ViewHelpers\Debug
+ * @package PSBits\Debug\ViewHelpers\Debug
  */
 class StopWatchViewHelper extends AbstractViewHelper
 {

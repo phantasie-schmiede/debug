@@ -8,13 +8,13 @@ $EM_CONF[$_EXTKEY] = [
     'constraints'      => [
         'conflicts' => [],
         'depends'   => [
-            'php'   => '8.0',
+            'php'   => '8.3',
             'typo3' => '11.5.0-13.4.99',
         ],
         'suggests'  => [],
     ],
     'description'      => 'Collection of debugging tools',
     'state'            => 'stable',
-    'title'            => 'PSbits | Debug',
-    'version'          => '1.0.0',
+    'title'            => 'PSBits | Debug',
+    'version'          => '2.0.0',
 ];

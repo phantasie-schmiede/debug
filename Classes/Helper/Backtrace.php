@@ -2,22 +2,22 @@
 declare(strict_types=1);
 
 /*
- * This file is part of PSB Debug.
+ * This file is part of PSBits Debug.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace PSB\PsbDebug\Helper;
+namespace PSBits\Debug\Helper;
 
 /**
  * Class Backtrace
  *
- * @package PSB\PsbDebug\Helper
+ * @package PSBits\Debug\Helper
  */
 class Backtrace
 {
-    public const DEFAULT_FORMAT = '{class}::{function} in {file}:{line}';
+    public const string DEFAULT_FORMAT = '{class}::{function} in {file}:{line}';
 
     protected array $backtrace;
 

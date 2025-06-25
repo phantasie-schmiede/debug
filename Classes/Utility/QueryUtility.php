@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 /*
- * This file is part of PSB Debug.
+ * This file is part of PSBits Debug.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace PSB\PsbDebug\Utility;
+namespace PSBits\Debug\Utility;
 
-use PSB\PsbDebug\Helper\Backtrace;
+use PSBits\Debug\Helper\Backtrace;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -20,7 +20,7 @@ use function is_string;
 /**
  * Class QueryUtility
  *
- * @package PSB\PsbDebug\Utility
+ * @package PSBits\Debug\Utility
  */
 class QueryUtility
 {
@@ -50,7 +50,7 @@ class QueryUtility
 
         $template = GeneralUtility::makeInstance(StandaloneView::class);
         $template->setTemplatePathAndFilename(
-            GeneralUtility::getFileAbsFileName('EXT:psb_debug/Resources/Private/Templates/Message.html')
+            GeneralUtility::getFileAbsFileName('EXT:debug/Resources/Private/Templates/Message.html')
         );
         $template->assignMultiple([
             // Revert search order so that "value10" gets replaced before "value1"!

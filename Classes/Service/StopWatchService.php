@@ -2,13 +2,13 @@
 declare(strict_types=1);
 
 /*
- * This file is part of PSB Debug.
+ * This file is part of PSBits Debug.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace PSB\PsbDebug\Service;
+namespace PSBits\Debug\Service;
 
 use RuntimeException;
 use TYPO3\CMS\Core\Utility\DebugUtility;
@@ -16,7 +16,7 @@ use TYPO3\CMS\Core\Utility\DebugUtility;
 /**
  * Class StopWatchService
  *
- * @package PSB\PsbDebug\Service
+ * @package PSBits\Debug\Service
  */
 class StopWatchService
 {
