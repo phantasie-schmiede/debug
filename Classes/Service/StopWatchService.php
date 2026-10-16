@@ -41,7 +41,7 @@ class StopWatchService
     protected float $startTime = 0.0;
 
     /**
-     * @var array
+     * @var list<string>
      */
     protected array $timeLog = [];
 
@@ -120,7 +120,7 @@ class StopWatchService
     }
 
     /**
-     * @return array
+     * @return list<string>
      */
     public function getTimeLog(): array
     {
@@ -128,7 +128,7 @@ class StopWatchService
     }
 
     /**
-     * @param array $timeLog
+     * @param list<string> $timeLog
      */
     public function setTimeLog(array $timeLog): void
     {

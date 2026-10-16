@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+    public: false
+
+  PSBits\Debug\:
+    resource: '../Classes/*'

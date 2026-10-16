@@ -1,50 +1,76 @@
 {
-	"authors": [
-		{
-			"email": "dn@phantasie-schmiede.de",
-			"name": "Daniel Ablass",
-			"role": "Developer"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"PSBits\\Debug\\": "Classes/"
-		}
-	},
-	"config": {
-		"bin-dir": ".Build/bin",
-		"sort-packages": true,
-		"vendor-dir": ".Build/vendor"
-	},
-	"description": "Collection of debugging tools",
-	"extra": {
-		"typo3/cms": {
-			"cms-package-dir": "{$vendor-dir}/typo3/cms",
-			"extension-key": "debug",
-			"web-dir": ".Build/public"
-		}
-	},
-	"keywords": [
-		"development",
-		"extension",
-		"typo3"
-	],
-	"license": "GPL-3.0-or-later",
-	"name": "psbits/debug",
-	"require": {
-		"php": "^8.3",
-		"typo3/cms-core": "^11.5|^12.4|^13.4"
-	},
-	"require-dev": {
-		"roave/security-advisories": "dev-latest"
-	},
-	"scripts": {
-		"prepare-release": [
-			"rm -rf .github",
-			"rm .editorconfig",
-			"rm .gitattributes",
-			"rm .gitignore"
-		]
-	},
-	"type": "typo3-cms-extension"
+    "authors": [
+        {
+            "email": "dn@phantasie-schmiede.de",
+            "name": "Daniel Ablass",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PSBits\\Debug\\": "Classes/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "bin-dir": ".Build/bin",
+        "sort-packages": true,
+        "vendor-dir": ".Build/vendor"
+    },
+    "description": "Collection of debugging tools",
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "extension-key": "debug",
+            "web-dir": ".Build/public"
+        }
+    },
+    "keywords": [
+        "development",
+        "extension",
+        "typo3"
+    ],
+    "license": "GPL-3.0-or-later",
+    "name": "psbits/debug",
+    "require": {
+        "php": "^8.3",
+        "typo3/cms-fluid": "^11.5|^12.4|^13.4",
+        "typo3/cms-core": "^11.5|^12.4|^13.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/phpstan": "^2.2",
+        "roave/security-advisories": "dev-latest",
+        "saschaegerer/phpstan-typo3": "^2.1"
+    },
+    "scripts": {
+        "analyze:php": "phpstan analyse --configuration=Build/Quality/phpstan.neon.dist --no-progress",
+        "audit:composer": "composer audit --abandoned=report",
+        "fix:all": [
+            "@fix:php"
+        ],
+        "fix:php": "php-cs-fixer fix --config=Build/Quality/.php-cs-fixer.dist.php --verbose",
+        "lint:all": [
+            "@analyze:php",
+            "@audit:composer",
+            "@lint:php",
+            "@lint:yaml",
+            "@validate:composer"
+        ],
+        "lint:php": "php-cs-fixer fix --config=Build/Quality/.php-cs-fixer.dist.php --dry-run --diff --verbose",
+        "lint:typoscript": "typoscript-lint --config=Build/Quality/typoscript-lint.yml --ansi Configuration/TypoScript",
+        "lint:yaml": "yamllint -c Build/Quality/.yamllint.yml Configuration",
+        "post-install-cmd": [
+            "cp Build/GitHooks/pre-commit .git/hooks/pre-commit"
+        ],
+        "qa": [
+            "@fix:all",
+            "@lint:all"
+        ],
+        "validate:composer": "composer validate --no-check-publish"
+    },
+    "type": "typo3-cms-extension"
 }

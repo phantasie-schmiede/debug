@@ -25,8 +25,8 @@ use function is_string;
 class QueryUtility
 {
     /**
-     * @param QueryInterface $query
-     * @param string|null    $title
+     * @param QueryInterface<object> $query
+     * @param string|null            $title
      *
      * @return void
      */
@@ -43,9 +43,7 @@ class QueryUtility
         });
         $replaceArray = array_values($parameters);
         array_walk($replaceArray, static function(&$value) {
-            if (is_string($value)) {
-                $value = '"' . $value . '"';
-            }
+            $value = is_string($value) ? '"' . $value . '"' : (string)$value;
         });
 
         $template = GeneralUtility::makeInstance(StandaloneView::class);
