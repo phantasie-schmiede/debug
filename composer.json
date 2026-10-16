@@ -23,7 +23,6 @@
     "description": "Collection of debugging tools",
     "extra": {
         "typo3/cms": {
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "extension-key": "debug",
             "web-dir": ".Build/public"
         }
