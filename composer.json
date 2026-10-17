@@ -36,8 +36,8 @@
     "name": "psbits/debug",
     "require": {
         "php": "^8.3",
-        "typo3/cms-fluid": "^11.5|^12.4|^13.4",
-        "typo3/cms-core": "^11.5|^12.4|^13.4"
+        "typo3/cms-fluid": "^12.4 || ^13.4 || ^14.3",
+        "typo3/cms-core": "^12.4 || ^13.4 || ^14.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",
