@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -39,7 +40,7 @@ class Backtrace
 
     public function getCaller(int $level = 1): string
     {
-        return $this->backtrace[$level]['class'] . '::' . $this->backtrace[1]['function'];
+        return $this->backtrace[$level]['class'] . '::' . $this->backtrace[$level]['function'];
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -29,14 +30,11 @@ class QueryUtility
 {
     /**
      * @param QueryInterface<object> $query
-     * @param string|null            $title
-     *
-     * @return void
      */
     public static function debug(QueryInterface $query, ?string $title = null): void
     {
         $queryParser = GeneralUtility::makeInstance(Typo3DbQueryParser::class);
-        $sql = $queryParser->convertQueryToDoctrineQueryBuilder($query)
+        $sql         = $queryParser->convertQueryToDoctrineQueryBuilder($query)
                 ->getSQL() . ';';
         $parameters = $queryParser->convertQueryToDoctrineQueryBuilder($query)
             ->getParameters();
@@ -51,12 +49,15 @@ class QueryUtility
 
         /** @var ServerRequestInterface|null $request */
         $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
-        $view    = GeneralUtility::makeInstance(ViewFactoryInterface::class)->create(
-            new ViewFactoryData(
-                templatePathAndFilename: GeneralUtility::getFileAbsFileName('EXT:debug/Resources/Private/Templates/Message.html'),
-                request: $request,
-            )
-        );
+        $view    = GeneralUtility::makeInstance(ViewFactoryInterface::class)
+            ->create(
+                new ViewFactoryData(
+                    templatePathAndFilename: GeneralUtility::getFileAbsFileName(
+                        'EXT:debug/Resources/Private/Templates/Message.html'
+                    ),
+                    request                : $request,
+                )
+            );
         $view->assignMultiple([
             // Revert search order so that "value10" gets replaced before "value1"!
             'message' => str_replace(array_reverse($searchArray), array_reverse($replaceArray), $sql),
