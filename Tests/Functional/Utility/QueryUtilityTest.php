@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace PSBits\Debug\Tests\Functional\Utility;
 
+use Doctrine\DBAL\Exception;
 use PHPUnit\Framework\Attributes\Test;
 use PSBits\Debug\Tests\Functional\Fixtures\Domain\DebugModel;
 use PSBits\Debug\Utility\QueryUtility;
@@ -21,6 +22,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
+use function get_class;
 use function ob_get_clean;
 use function ob_start;
 
@@ -63,16 +65,38 @@ class QueryUtilityTest extends FunctionalTestCase
         self::assertStringContainsString('Query from ' . static::class . '::debugWithoutTitle in ', $output);
     }
 
+    /**
+     * @throws Exception
+     */
     private function createFixtureTable(): void
     {
         $dataMap = GeneralUtility::makeInstance(DataMapFactory::class)
             ->buildDataMap(DebugModel::class);
         $tableName = $dataMap->getTableName();
 
+        /*
+         * The auto-increment syntax is dialect-specific; matching on the
+         * lowercased platform class name keeps this compatible with both
+         * doctrine/dbal 3 and 4 (the class casing differs between them).
+         */
+        $platform = strtolower(
+            get_class(
+                GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable('pages')
+                    ->getDatabasePlatform(),
+            )
+        );
+        $uidColumn = match (true) {
+            str_contains($platform, 'sqlite')                                    => 'uid INTEGER PRIMARY KEY AUTOINCREMENT',
+            str_contains($platform, 'maria') || str_contains($platform, 'mysql') => 'uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            default                                                              => 'uid SERIAL PRIMARY KEY',
+        };
+
         GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('pages')
             ->executeStatement(
-                'CREATE TABLE IF NOT EXISTS ' . $tableName . ' (uid INTEGER PRIMARY KEY AUTOINCREMENT, pid INTEGER NOT NULL DEFAULT 0, header VARCHAR(255) NOT NULL DEFAULT "")',
+                'CREATE TABLE IF NOT EXISTS ' . $tableName
+                . ' (' . $uidColumn . ', pid INTEGER NOT NULL DEFAULT 0, header VARCHAR(255) NOT NULL DEFAULT \'\')',
             );
     }
 
