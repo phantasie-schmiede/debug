@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,6 +20,9 @@ class Backtrace
 {
     public const string DEFAULT_FORMAT = '{class}::{function} in {file}:{line}';
 
+    /**
+     * @var list<array<string, mixed>>
+     */
     protected array $backtrace;
 
     public function __construct()
@@ -26,6 +30,9 @@ class Backtrace
         $this->backtrace = debug_backtrace();
     }
 
+    /**
+     * @return list<array<string, mixed>>
+     */
     public function getBacktrace(): array
     {
         return $this->backtrace;
@@ -33,9 +40,12 @@ class Backtrace
 
     public function getCaller(int $level = 1): string
     {
-        return $this->backtrace[$level]['class'] . '::' . $this->backtrace[1]['function'];
+        return $this->backtrace[$level]['class'] . '::' . $this->backtrace[$level]['function'];
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     public function getCallerArgs(int $level = 1): array
     {
         return $this->backtrace[$level]['args'];
@@ -83,7 +93,7 @@ class Backtrace
             [
                 $this->getCallerClass($level),
                 $this->getCallerFunction($level),
-                $this->getCallerLine($level),
+                (string)$this->getCallerLine($level),
                 $this->getCallerFile($level),
             ],
             $format

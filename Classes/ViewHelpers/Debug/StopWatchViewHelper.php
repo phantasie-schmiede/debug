@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -20,18 +21,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class StopWatchViewHelper extends AbstractViewHelper
 {
+    protected                  $escapeOutput = false;
     protected StopWatchService $stopWatchService;
 
     public function __construct(
-        StopWatchService $stopWatchService
+        StopWatchService $stopWatchService,
     ) {
         $this->stopWatchService = $stopWatchService;
     }
-
-    /**
-     * @var bool
-     */
-    protected $escapeOutput = false;
 
     public function initializeArguments(): void
     {
