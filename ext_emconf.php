@@ -16,5 +16,5 @@ $EM_CONF[$_EXTKEY] = [
     'description'      => 'Collection of debugging tools',
     'state'            => 'stable',
     'title'            => 'PSBits | Debug',
-    'version'          => '2.0.0',
+    'version'          => '3.0.0',
 ];
